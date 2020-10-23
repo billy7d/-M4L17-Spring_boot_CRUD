@@ -1,7 +1,9 @@
 package com.example.crud.controller;
 
 import com.example.crud.model.Customer;
+import com.example.crud.model.Province;
 import com.example.crud.service.customer.CustomerService;
+import com.example.crud.service.province.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,14 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
+    @Autowired
+    ProvinceService provinceService;
+
+    @ModelAttribute("provinces")
+    public Iterable<Province> getProvinces() {
+        Iterable<Province> provinces = provinceService.findAll();
+        return  provinces ;
+    }
     @GetMapping("")
     public String findAll(Model model ){
         Iterable<Customer> customers =customerService.findAll();
