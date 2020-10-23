@@ -5,20 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/customers/create}" th:object="${customer}" method="post">
+<div>
+    <a th:href="@{/provinces}">Province list</a>
+</div>
+<form th:action="@{/provinces/create}" th:object="${province}" method="post">
     <table>
         <tr>
 
-            <th>Name</th>
-            <th>Province:</th>
+            <th>Name:</th>
         </tr>
         <tr>
             <td> <input type="text" th:field="*{name}"/></td>
-            <td>
-                <select th:field="*{province}" name="province">
-                    <option th:each="p:${provinces}" th:value="${p.id}" th:text="${p.name}"></option>
-                </select>
-            </td>
 
         </tr>
         <tr>

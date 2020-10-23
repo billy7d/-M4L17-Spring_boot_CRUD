@@ -5,10 +5,7 @@ import com.example.crud.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +18,7 @@ public class CustomerController {
     CustomerService customerService;
 
     @GetMapping("")
-    public String findAll( Model model ){
+    public String findAll(Model model ){
         Iterable<Customer> customers =customerService.findAll();
         model.addAttribute("customers",customers);
         return "customer/list";
@@ -33,7 +30,7 @@ public class CustomerController {
         return "customer/create";
     }
     @PostMapping("/create/")
-    public String createCustomer(Customer customer){
+    public String createCustomer(@ModelAttribute Customer customer){
         customerService.save(customer);
         return  "redirect:/customers";
     }
@@ -48,7 +45,7 @@ public class CustomerController {
     }
 
     @PostMapping("/edit")
-    public String edit(Customer customer){
+    public String edit(@ModelAttribute Customer customer){
         customerService.save(customer);
         return "redirect:/customers";
     }

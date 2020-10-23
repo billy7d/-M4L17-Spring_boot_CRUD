@@ -1,6 +1,7 @@
 package com.example.crud.controller;
 
 
+import com.example.crud.model.Customer;
 import com.example.crud.model.Province;
 import com.example.crud.service.province.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class ProvinceController {
 
     @GetMapping("/create")
     public String showCreateForm(Model model){
-        model.addAttribute("province", new Province());
+        model.addAttribute("province",new Province());
         return "province/create";
     }
 
@@ -35,35 +36,31 @@ public class ProvinceController {
     public String saveProvince(@ModelAttribute("province") Province province, Model model){
         provinceService.save(province);
         model.addAttribute("province", new Province());
-        model.addAttribute("message", "New province created successfully");
-        return "customer/province/create";
+        return "redirect:/provinces";
     }
 
-    @GetMapping("/provinces/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable Integer id, Model model){
         Optional<Province> province = provinceService.findById(id);
         if(province.isPresent()) {
             model.addAttribute("province", province);
 
-
         }
         return "province/edit";
     }
 
-    @PostMapping("/provinces/edit")
+    @PostMapping("/edit")
     public String updateProvince(@ModelAttribute("province") Province province, Model model){
         provinceService.save(province);
-
         model.addAttribute("province", province);
-        model.addAttribute("message", "Province updated successfully");
         return "province/edit";
     }
 
 
-    @PostMapping("/provinces/delete")
-    public String deleteProvince(@ModelAttribute("province") Province province){
-        provinceService.remove(province.getId());
-        return "redirect:provinces";
+    @GetMapping("/delete/{id}")
+    public String deleteProvince(@PathVariable Integer id){
+        provinceService.remove(id);
+        return "redirect:/provinces";
     }
 
 }

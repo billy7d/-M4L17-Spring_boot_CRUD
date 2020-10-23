@@ -11,6 +11,7 @@ public class Customer {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "province_id")
     private Province province;
 
     public Customer(){}
